@@ -1,46 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import styles from './UserPhotoPost.module.css'
-import useForm from '../../Hooks/useForm'
-import useFetch from '../../Hooks/useFetch'
-import Input from '../Forms/Input'
-import Button from '../Forms/Button'
-import { PHOTO_POST } from '../../api'
-import Error from '../Helper/Error'
-import { useNavigate } from 'react-router-dom'
-import Head from '../Helper/Head'
+import React, { useEffect, useState } from 'react';
+import styles from './UserPhotoPost.module.css';
+import useForm from '../../Hooks/useForm';
+import useFetch from '../../Hooks/useFetch';
+import Input from '../Forms/Input';
+import Button from '../Forms/Button';
+import { PHOTO_POST } from '../../api';
+import Error from '../Helper/Error';
+import { useNavigate } from 'react-router-dom';
+import Head from '../Helper/Head';
 
 const UserPhotoPost = () => {
-  const nome = useForm()
-  const peso = useForm('number')
-  const idade = useForm('number')
-  const [img, setImg] = useState({})
-  const { data, error, loading, request } = useFetch()
-  const navigate = useNavigate()
+  const nome = useForm();
+  const peso = useForm('number');
+  const idade = useForm('number');
+  const [img, setImg] = useState({});
+  const { data, error, loading, request } = useFetch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (data) navigate('/conta')
-  }, [data, navigate])
+    if (data) navigate('/dogs-social/conta');
+  }, [data, navigate]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const formData = new FormData()
-    formData.append('img', img.raw)
-    formData.append('nome', nome.value)
-    formData.append('peso', peso.value)
-    formData.append('idade', idade.value)
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('img', img.raw);
+    formData.append('nome', nome.value);
+    formData.append('peso', peso.value);
+    formData.append('idade', idade.value);
 
-    const token = window.localStorage.getItem('token')
-    const { url, options } = PHOTO_POST(formData, token)
+    const token = window.localStorage.getItem('token');
+    const { url, options } = PHOTO_POST(formData, token);
 
-    request(url, options)
-  }
+    request(url, options);
+  };
 
   const handleImgChange = ({ target }) => {
     setImg({
       preview: URL.createObjectURL(target.files[0]),
       raw: target.files[0],
-    })
-  }
+    });
+  };
 
   return (
     <section className={`${styles.photoPost} animeLeft`}>
@@ -72,7 +72,7 @@ const UserPhotoPost = () => {
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default UserPhotoPost
+export default UserPhotoPost;

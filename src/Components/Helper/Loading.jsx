@@ -1,6 +1,5 @@
-import React from 'react'
-import styles from './Loading.module.css'
-import CarregandoSvg from '../../Assets/CarregandoSvg'
+import React from 'react';
+import styles from './Loading.module.css';
 
 const Loading = () => {
   return (
@@ -8,7 +7,7 @@ const Loading = () => {
       <div className={styles.inner}></div>
       <div className={styles.outer}></div>
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

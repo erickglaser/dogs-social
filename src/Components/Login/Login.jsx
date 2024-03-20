@@ -1,17 +1,17 @@
-import styles from './Login.module.css'
-import React, { useContext } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import LoginForm from './LoginForm'
-import LoginCreate from './LoginCreate'
-import LoginPasswordLost from './LoginPasswordLost'
-import LoginPasswordReset from './LoginPasswordReset'
-import { UserContext } from '../../UserContext'
-import NotFound from '../NotFound'
+import styles from './Login.module.css';
+import React, { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import LoginForm from './LoginForm';
+import LoginCreate from './LoginCreate';
+import LoginPasswordLost from './LoginPasswordLost';
+import LoginPasswordReset from './LoginPasswordReset';
+import { UserContext } from '../../UserContext';
+import NotFound from '../NotFound';
 
 const Login = () => {
-  const { login } = useContext(UserContext)
+  const { login } = useContext(UserContext);
 
-  if (login === true) return <Navigate to="/conta" />
+  if (login === true) return <Navigate to="dogs-social/conta" />;
   return (
     <section className={styles.login}>
       <div className={styles.forms}>
@@ -24,7 +24,7 @@ const Login = () => {
         </Routes>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

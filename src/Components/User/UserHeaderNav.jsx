@@ -1,28 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { UserContext } from '../../UserContext'
-import minhasFotos from '../../Assets/feed.svg'
-import estatisticas from '../../Assets/estatisticas.svg'
-import adicionarFoto from '../../Assets/adicionar.svg'
-import sair from '../../Assets/sair.svg'
-import styles from './UserHeaderNav.module.css'
-import useMedia from '../../Hooks/useMedia'
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../UserContext';
+import minhasFotos from '../../Assets/feed.svg';
+import estatisticas from '../../Assets/estatisticas.svg';
+import adicionarFoto from '../../Assets/adicionar.svg';
+import sair from '../../Assets/sair.svg';
+import styles from './UserHeaderNav.module.css';
+import useMedia from '../../Hooks/useMedia';
 
 const UserHeaderNav = () => {
-  const { userLogout } = useContext(UserContext)
-  const navigate = useNavigate()
-  const mobile = useMedia('(max-width: 40rem)')
-  const [mobileMenu, setMobileMenu] = useState(false)
+  const { userLogout } = useContext(UserContext);
+  const navigate = useNavigate();
+  const mobile = useMedia('(max-width: 40rem)');
+  const [mobileMenu, setMobileMenu] = useState(false);
 
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
   useEffect(() => {
-    setMobileMenu(false)
-  }, [pathname])
+    setMobileMenu(false);
+  }, [pathname]);
 
   const handleLogout = () => {
-    userLogout()
-    navigate('/login')
-  }
+    userLogout();
+    navigate('/dogs-social/login');
+  };
 
   return (
     <>
@@ -41,15 +41,15 @@ const UserHeaderNav = () => {
           mobileMenu && styles.navMobileActive
         }`}
       >
-        <NavLink to="/conta" end>
+        <NavLink to="/dogs-social/conta" end>
           <img src={minhasFotos} />
           {mobile && 'Minhas Fotos'}
         </NavLink>
-        <NavLink to="/conta/estatisticas">
+        <NavLink to="/dogs-social/conta/estatisticas">
           <img src={estatisticas} />
           {mobile && 'Estatística'}
         </NavLink>
-        <NavLink to="/conta/postar">
+        <NavLink to="/dogs-social/conta/postar">
           <img src={adicionarFoto} />
           {mobile && 'Adicionar foto'}
         </NavLink>
@@ -59,7 +59,7 @@ const UserHeaderNav = () => {
         </button>
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default UserHeaderNav
+export default UserHeaderNav;

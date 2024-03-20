@@ -1,27 +1,27 @@
-import React, { useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
-import Input from '../Forms/Input'
-import Button from '../Forms/Button'
-import Error from '../Helper/Error'
-import useForm from '../../Hooks/useForm'
-import { UserContext } from '../../UserContext'
-import styles from './LoginForm.module.css'
-import stylesBtn from '../Forms/Button.module.css'
-import Head from '../Helper/Head'
+import React, { useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import Input from '../Forms/Input';
+import Button from '../Forms/Button';
+import Error from '../Helper/Error';
+import useForm from '../../Hooks/useForm';
+import { UserContext } from '../../UserContext';
+import styles from './LoginForm.module.css';
+import stylesBtn from '../Forms/Button.module.css';
+import Head from '../Helper/Head';
 
 const LoginForm = () => {
-  const username = useForm()
-  const password = useForm()
+  const username = useForm();
+  const password = useForm();
 
-  const { userLogin, error, login, loading } = useContext(UserContext)
+  const { userLogin, error, login, loading } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (username.validate() && password.validate()) {
-      userLogin(username.value, password.value)
+      userLogin(username.value, password.value);
     }
-  }
+  };
 
   return (
     <section className="animeLeft">
@@ -37,18 +37,18 @@ const LoginForm = () => {
         )}
         <Error error={error} />
       </form>
-      <Link className={styles.perdeu} to="/login/perdeu">
+      <Link className={styles.perdeu} to="/dogs-social/login/perdeu">
         Esqueceu a senha?
       </Link>
       <div className={styles.cadastro}>
         <h2 className={styles.subtitle}>Cadastre-se</h2>
         <p>Ainda não possui conta? Cadastre-se no site.</p>
       </div>
-      <Link className={stylesBtn.button} to="/login/criar">
+      <Link className={stylesBtn.button} to="/dogs-social/login/criar">
         Cadastro
       </Link>
     </section>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

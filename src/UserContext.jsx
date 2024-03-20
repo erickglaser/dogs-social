@@ -1,73 +1,73 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { TOKEN_POST, TOKEN_VALIDATE_POST, USER_GET } from './api'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react';
+import { TOKEN_POST, TOKEN_VALIDATE_POST, USER_GET } from './api';
+import { useNavigate } from 'react-router-dom';
 
-export const UserContext = React.createContext()
+export const UserContext = React.createContext();
 
 export const UserStorage = ({ children }) => {
-  const [data, setData] = useState(null)
-  const [login, setLogin] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const navigate = useNavigate()
+  const [data, setData] = useState(null);
+  const [login, setLogin] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const userLogout = useCallback(async () => {
-    setData(null)
-    setError(null)
-    setLoading(false)
-    setLogin(false)
-    window.localStorage.removeItem('token')
-  }, [])
+    setData(null);
+    setError(null);
+    setLoading(false);
+    setLogin(false);
+    window.localStorage.removeItem('token');
+  }, []);
 
   const getUser = async (token) => {
-    const { url, options } = USER_GET(token)
-    const response = await fetch(url, options)
-    const json = await response.json()
-    setData(json)
-    setLogin(true)
-  }
+    const { url, options } = USER_GET(token);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    setData(json);
+    setLogin(true);
+  };
 
   const userLogin = async (username, password) => {
     try {
-      setError(null)
-      setLoading(true)
-      const { url, options } = TOKEN_POST({ username, password })
-      const tokenRes = await fetch(url, options)
-      if (!tokenRes.ok) throw new Error(`Insira uma senha ou usuário válido!!`)
-      const { token } = await tokenRes.json()
-      window.localStorage.setItem('token', token)
-      await getUser(token)
-      navigate('/conta')
+      setError(null);
+      setLoading(true);
+      const { url, options } = TOKEN_POST({ username, password });
+      const tokenRes = await fetch(url, options);
+      if (!tokenRes.ok) throw new Error(`Insira uma senha ou usuário válido!!`);
+      const { token } = await tokenRes.json();
+      window.localStorage.setItem('token', token);
+      await getUser(token);
+      navigate('/dogs-social/conta');
     } catch (err) {
-      setError(err.message)
-      setLogin(false)
+      setError(err.message);
+      setLogin(false);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     const autoLogin = async () => {
-      const token = window.localStorage.getItem('token')
+      const token = window.localStorage.getItem('token');
       if (token) {
         try {
-          setError(null)
-          setLoading(true)
-          const { url, options } = TOKEN_VALIDATE_POST(token)
-          const response = await fetch(url, options)
-          if (!response.ok) throw new Error('Token inválido')
-          await getUser(token)
+          setError(null);
+          setLoading(true);
+          const { url, options } = TOKEN_VALIDATE_POST(token);
+          const response = await fetch(url, options);
+          if (!response.ok) throw new Error('Token inválido');
+          await getUser(token);
         } catch (err) {
-          userLogout()
+          userLogout();
         } finally {
-          setLoading(false)
+          setLoading(false);
         }
       } else {
-        setLogin(false)
+        setLogin(false);
       }
-    }
-    autoLogin()
-  }, [userLogout])
+    };
+    autoLogin();
+  }, [userLogout]);
 
   return (
     <UserContext.Provider
@@ -75,5 +75,5 @@ export const UserStorage = ({ children }) => {
     >
       {children}
     </UserContext.Provider>
-  )
-}
+  );
+};
